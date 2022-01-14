@@ -1,0 +1,1 @@
+ -LD:/proj/gitFFmpeg/lib -lavdevice -lavfilter -lavformat -lavcodec -lavutil -lswscale ../lib/SDL2-devel-2.0.20-VC/SDL2-2.0.20/lib/x64/SDL2main.lib ../lib/SDL2-devel-2.0.20-VC/SDL2-2.0.20/lib/x64/SDL2.lib -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32 
