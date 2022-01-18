@@ -1,12 +1,16 @@
 #include "mPlayer.h"
 
-int mPlayer::initFFmpegAndSDL() {
+int mPlayer::initFFmpeg() {
     // 注册所有的编解码器
 	av_register_all();
     //Register Device
 	avdevice_register_all();
 	avformat_network_init();
 
+    pFormatCtx = avformat_alloc_context();
+}
+
+int mPlayer::initSDL() {
     //———————init SDL———————
     if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO | SDL_INIT_TIMER)) {
         std::cout << "cant init SDL! error: " << SDL_GetError() << std::endl;
@@ -23,26 +27,37 @@ int mPlayer::initFFmpegAndSDL() {
 }
 
 mPlayer::mPlayer(SOURCE_TYPE srcType, const char *srcName) {
-    initFFmpegAndSDL();
+    videoRecorder = NULL;
 
-    AVInputFormat * inputFormat = NULL;
+    initFFmpeg();
+
+    AVInputFormat * inputFormat;
     AVDictionary *option = NULL;
     if (srcType == CAM) {
         inputFormat = av_find_input_format(srcName);
-        srcName = "0";
+        if (strcmp(srcName, D_SHOW_DEV) == 0) {
+            srcName = "video=USB2.0 HD UVC WebCam";
+        } else {
+            srcName = "0";
+        }
         
         // 分辨率
-        av_dict_set(&option, "video_size", "500x300", 0);
+        // av_dict_set(&option, "video_size", "500x300", 0);
         // 设置帧率
-        av_dict_set(&option, "framerate", "25", 0);
+        // av_dict_set(&option, "framerate", "25", 0);
     }
 
     // 打开输入，将图像放进pFormatCtx的stream
-    int ret = avformat_open_input(&pFormatCtx, srcName, inputFormat, &option);
-        if (ret != 0) {
-            printf("source name error, file name:%s", srcName);
-            goto endOfFunc;
+    int ret = avformat_open_input(&pFormatCtx, srcName, inputFormat, option ? &option : NULL);
+    if (ret != 0) {
+        printf("source name error, file name:%s", srcName);
+        goto endOfFunc;
     }
+    if(avformat_find_stream_info(pFormatCtx,NULL)<0)
+	{
+		printf("Couldn't find stream information.\n");
+		goto endOfFunc;
+	}
     for (int i = 0; i < pFormatCtx->nb_streams; i++) {
         if (pFormatCtx->streams[i]->codecpar->codec_type == AVMEDIA_TYPE_VIDEO) {
             videoStream = pFormatCtx->streams[i];
@@ -63,8 +78,11 @@ mPlayer::mPlayer(SOURCE_TYPE srcType, const char *srcName) {
 		goto endOfFunc;
 	}
 
+    initSDL();
+    threadExit = true;
+    sdlThread = NULL;
     // 用于错误转跳
-    endOfFunc:
+    endOfFunc: ;
 }
 
 mPlayer::~mPlayer() {
@@ -83,6 +101,7 @@ int mPlayer::showDShowDevice() {
 	printf("========Device Info=============\n");
 	avformat_open_input(&pFormatCtx,"video=dummy",iformat,&options);
 	printf("================================\n");
+    return 0;
 }
 
 int mPlayer::showVfwCapDevice() {
@@ -91,13 +110,20 @@ int mPlayer::showVfwCapDevice() {
 	printf("========VFW Device Info======\n");
 	avformat_open_input(&pFormatCtx,"list",iformat,NULL);
 	printf("=============================\n");
+    return 0;
 }
 
-int mPlayer::refreshSDLThread(void *p) {
-    threadExit = false;
+int refreshSDLThread(void *data) {
+    bool *threadExit = (bool *)data;
+    // printf("%d", *threadExit);
+    *threadExit = false;
+    // printf("%d", *threadExit);
+    
     SDL_Event event;
-    while(!threadExit) {
-        event.type = SDL_REFRESHEVENT;
+    event.type = SDL_REFRESHEVENT;
+    while(!(*threadExit)) {
+    // while(true) {
+        // printf("while");
         SDL_PushEvent(&event);
         // 25帧
         SDL_Delay(40);
@@ -109,12 +135,20 @@ int mPlayer::refreshSDLThread(void *p) {
 
 int mPlayer::SDLDisplay() {
     if (!sdlThread) {
-        sdlThread = SDL_CreateThread(refreshSDLThread, NULL, NULL);
+        sdlThread = SDL_CreateThread(refreshSDLThread, "sendRefreshThread", &threadExit);
     }
 
     AVPixelFormat pixFmt = ConvertDeprecatedFormat(pCodecCtx->pix_fmt);
     SwsContext* convertCtx = sws_getContext(pCodecCtx->width, pCodecCtx->height, 
     pixFmt, pCodecCtx->width, pCodecCtx->height, AV_PIX_FMT_YUV420P, SWS_BICUBIC, NULL, NULL, NULL);
+
+    AVFrame *pFrameYUV = av_frame_alloc();
+    unsigned char *outBuffer=(unsigned char *)av_malloc(
+    av_image_get_buffer_size(AV_PIX_FMT_YUV420P,  pCodecCtx->width, pCodecCtx->height,1
+    ));
+	// 将outBuffer关联到FrameYUV上
+    av_image_fill_arrays(pFrameYUV->data, pFrameYUV->linesize, outBuffer,
+		AV_PIX_FMT_YUV420P, pCodecCtx->width, pCodecCtx->height, 1);
     
     while(true) {
         SDL_Event event;
@@ -125,12 +159,16 @@ int mPlayer::SDLDisplay() {
             AVPacket *readPkt = av_packet_alloc();
             // 从流里读一个包
             int ret = av_read_frame(pFormatCtx, readPkt);
+            if (readPkt->stream_index != videoStream->index) {
+                printf("%d", readPkt->stream_index);
+                continue;
+            }
             if (ret != 0) {
                 printf("Read frame error! ret:%d", ret);
                 break;
             }
             // 把包发给ffmpeg解码
-            AVFrame *pFrame = av_frame_alloc(), *pFrameYUV = av_frame_alloc();
+            AVFrame *pFrame = av_frame_alloc();
             ret = avcodec_send_packet(pCodecCtx, readPkt);
             if (ret != 0) {
                 printf("Send pkt error! ret:%d", ret);
@@ -143,12 +181,8 @@ int mPlayer::SDLDisplay() {
                 break;
             }
             // 转成YUV
-            ret = sws_scale(convertCtx, (const unsigned char* const*)pFrame->data, pFrame->linesize,
+            sws_scale(convertCtx, (const unsigned char* const*)pFrame->data, pFrame->linesize,
             0, pCodecCtx->height, pFrameYUV->data, pFrameYUV->linesize);
-            if (ret != 0) {
-                printf("Scale frame error! ret:%d", ret);
-                break;
-            }
             
             // 把yuv图像更新到贴图上
             SDL_UpdateTexture(tex, NULL, pFrameYUV->data[0], pFrameYUV->linesize[0]);
@@ -158,10 +192,33 @@ int mPlayer::SDLDisplay() {
             SDL_RenderCopy(render, tex, NULL, NULL);
             // 把缓冲区的render画上去
             SDL_RenderPresent(render);
-        } else if (keyState[SDLK_ESCAPE]) {
+
+            if (videoRecorder) {
+                videoRecorder->recordByFrame(pFrameYUV);
+            }
+
+            av_packet_free(&readPkt);
+        } else if (keyState[SDL_SCANCODE_ESCAPE]) {
+            printf("Detected ESC pressed, process exit");
             threadExit = true;
+            break;
         } else if (event.type == SDL_BREAKEVENT) {
             break;
         }
     }
+    return 0;
+}
+
+int mPlayer::setRecorder(mRecorder* recorder) {
+    videoRecorder = recorder;
+    return 0;
+}
+
+mRecorder* mPlayer::getRecorder() {
+    return videoRecorder;
+}
+
+int mPlayer::cleanRecorder() {
+    videoRecorder = NULL;
+    return 0;
 }

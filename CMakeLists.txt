@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.15)
 #project name
-PROJECT(ffmpegTest)
+PROJECT(ffmpegCamera)
 
 find_package(SDL2 REQUIRED)
 INCLUDE_DIRECTORIES(
@@ -20,9 +20,9 @@ SET(CMAKE_CXX_FLAGS_RELEASE "$ENV{CXXFLAGS} -O3 -Wall")
 link_directories(lib)
 
 #add executable file
-ADD_EXECUTABLE(ffmpegTest ${DIR_SRCS})
+ADD_EXECUTABLE(ffmpegCamera ${DIR_SRCS})
 #add link library
-TARGET_LINK_LIBRARIES(ffmpegTest 
+TARGET_LINK_LIBRARIES(ffmpegCamera 
     avdevice
     avfilter
     avformat

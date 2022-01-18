@@ -6,5 +6,5 @@ CXX_FLAGS =  -O0 -Wall -g2 -ggdb   -std=c++11
 
 CXX_DEFINES = 
 
-CXX_INCLUDES = @CMakeFiles/ffmpegTest.dir/includes_CXX.rsp
+CXX_INCLUDES = @CMakeFiles/ffmpegCamera.dir/includes_CXX.rsp
 

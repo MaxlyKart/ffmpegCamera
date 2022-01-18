@@ -4,7 +4,10 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "D:/proj/gitFFmpeg/source/main.cpp" "D:/proj/gitFFmpeg/bin/CMakeFiles/ffmpegTest.dir/source/main.cpp.obj"
+  "D:/proj/ffmpegCamera/source/mPlayer.cpp" "D:/proj/ffmpegCamera/bin/CMakeFiles/ffmpegCamera.dir/source/mPlayer.cpp.obj"
+  "D:/proj/ffmpegCamera/source/mRecorder.cpp" "D:/proj/ffmpegCamera/bin/CMakeFiles/ffmpegCamera.dir/source/mRecorder.cpp.obj"
+  "D:/proj/ffmpegCamera/source/main.cpp" "D:/proj/ffmpegCamera/bin/CMakeFiles/ffmpegCamera.dir/source/main.cpp.obj"
+  "D:/proj/ffmpegCamera/source/typeAInclude.cpp" "D:/proj/ffmpegCamera/bin/CMakeFiles/ffmpegCamera.dir/source/typeAInclude.cpp.obj"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 

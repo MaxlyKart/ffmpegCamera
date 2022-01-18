@@ -1,3 +1,0 @@
-D:\CMake\bin\cmake.exe -E remove -f CMakeFiles\ffmpegTest.dir/objects.a
-D:\mingw\mingw64\bin\ar.exe cr CMakeFiles\ffmpegTest.dir/objects.a @CMakeFiles\ffmpegTest.dir\objects1.rsp
-D:\mingw\mingw64\bin\g++.exe  -O0 -Wall -g2 -ggdb   -Wl,--whole-archive CMakeFiles\ffmpegTest.dir/objects.a -Wl,--no-whole-archive  -o ffmpegTest.exe -Wl,--out-implib,libffmpegTest.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\ffmpegTest.dir\linklibs.rsp

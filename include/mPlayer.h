@@ -2,14 +2,26 @@
 #define MAXLY_PLAYER
 
 #include "typeAInclude.h"
+#include "mRecorder.h"
 
 enum SOURCE_TYPE {
     CAM = 0,
     FD
 };
 
+/**
+ * @brief SDL发送事件线程函数
+ * 
+ * @param q 
+ * @return int 状态码
+ */
+static int refreshSDLThread(void *data);
+
 class mPlayer{
     private:
+    mRecorder *videoRecorder;
+    bool threadExit;
+
     // ffmpeg
     AVFormatContext	*pFormatCtx;
     AVCodecContext *pCodecCtx;
@@ -20,22 +32,21 @@ class mPlayer{
     SDL_Window *window;
     SDL_Renderer *render;
     SDL_Texture *tex;
-    bool threadExit = true;
+    // bool threadExit = true;
     SDL_Thread *sdlThread;
 
     /**
-     * @brief 进行ffmpeg和SDL的初始化
+     * @brief 进行ffmpeg初始化
      * 
      * @return int 
      */
-    int initFFmpegAndSDL();
+    int initFFmpeg();
     /**
-     * @brief SDL发送事件线程函数
+     * @brief 初始化SDL
      * 
-     * @param q 
-     * @return int 状态码
+     * @return int 
      */
-    int refreshSDLThread(void *q);
+    int initSDL();
 
     public:
     /**
@@ -70,6 +81,35 @@ class mPlayer{
      * @return int 状态码
      */
     int SDLDisplay();
+
+    /**
+     * @brief Set the Recorder object
+     * 
+     * @param recorder 
+     * @return int 
+     */
+    int setRecorder(mRecorder* recorder);
+    /**
+     * @brief Get the Recorder object
+     * 
+     * @return mRecorder* 
+     */
+    mRecorder* getRecorder();
+    /**
+     * @brief 将player持有的recorder对象清除
+     * 不会delete该对象
+     * 
+     * @return int 
+     */
+    int cleanRecorder();
+
+    // /**
+    //  * @brief SDL发送事件线程函数
+    //  * 
+    //  * @param q 
+    //  * @return int 状态码
+    //  */
+    // int refreshSDLThread(void *q);
 };
 
 #endif

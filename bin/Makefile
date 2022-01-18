@@ -47,10 +47,10 @@ RM = D:\CMake\bin\cmake.exe -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = D:\proj\gitFFmpeg
+CMAKE_SOURCE_DIR = D:\proj\ffmpegCamera
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = D:\proj\gitFFmpeg\bin
+CMAKE_BINARY_DIR = D:\proj\ffmpegCamera\bin
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -79,9 +79,9 @@ rebuild_cache/fast: rebuild_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start D:\proj\gitFFmpeg\bin\CMakeFiles D:\proj\gitFFmpeg\bin\CMakeFiles\progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start D:\proj\ffmpegCamera\bin\CMakeFiles D:\proj\ffmpegCamera\bin\CMakeFiles\progress.marks
 	$(MAKE) -f CMakeFiles\Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start D:\proj\gitFFmpeg\bin\CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start D:\proj\ffmpegCamera\bin\CMakeFiles 0
 .PHONY : all
 
 # The main clean target
@@ -110,17 +110,71 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named ffmpegTest
+# Target rules for targets named ffmpegCamera
 
 # Build rule for target.
-ffmpegTest: cmake_check_build_system
-	$(MAKE) -f CMakeFiles\Makefile2 ffmpegTest
-.PHONY : ffmpegTest
+ffmpegCamera: cmake_check_build_system
+	$(MAKE) -f CMakeFiles\Makefile2 ffmpegCamera
+.PHONY : ffmpegCamera
 
 # fast build rule for target.
-ffmpegTest/fast:
-	$(MAKE) -f CMakeFiles\ffmpegTest.dir\build.make CMakeFiles/ffmpegTest.dir/build
-.PHONY : ffmpegTest/fast
+ffmpegCamera/fast:
+	$(MAKE) -f CMakeFiles\ffmpegCamera.dir\build.make CMakeFiles/ffmpegCamera.dir/build
+.PHONY : ffmpegCamera/fast
+
+source/mPlayer.obj: source/mPlayer.cpp.obj
+
+.PHONY : source/mPlayer.obj
+
+# target to build an object file
+source/mPlayer.cpp.obj:
+	$(MAKE) -f CMakeFiles\ffmpegCamera.dir\build.make CMakeFiles/ffmpegCamera.dir/source/mPlayer.cpp.obj
+.PHONY : source/mPlayer.cpp.obj
+
+source/mPlayer.i: source/mPlayer.cpp.i
+
+.PHONY : source/mPlayer.i
+
+# target to preprocess a source file
+source/mPlayer.cpp.i:
+	$(MAKE) -f CMakeFiles\ffmpegCamera.dir\build.make CMakeFiles/ffmpegCamera.dir/source/mPlayer.cpp.i
+.PHONY : source/mPlayer.cpp.i
+
+source/mPlayer.s: source/mPlayer.cpp.s
+
+.PHONY : source/mPlayer.s
+
+# target to generate assembly for a file
+source/mPlayer.cpp.s:
+	$(MAKE) -f CMakeFiles\ffmpegCamera.dir\build.make CMakeFiles/ffmpegCamera.dir/source/mPlayer.cpp.s
+.PHONY : source/mPlayer.cpp.s
+
+source/mRecorder.obj: source/mRecorder.cpp.obj
+
+.PHONY : source/mRecorder.obj
+
+# target to build an object file
+source/mRecorder.cpp.obj:
+	$(MAKE) -f CMakeFiles\ffmpegCamera.dir\build.make CMakeFiles/ffmpegCamera.dir/source/mRecorder.cpp.obj
+.PHONY : source/mRecorder.cpp.obj
+
+source/mRecorder.i: source/mRecorder.cpp.i
+
+.PHONY : source/mRecorder.i
+
+# target to preprocess a source file
+source/mRecorder.cpp.i:
+	$(MAKE) -f CMakeFiles\ffmpegCamera.dir\build.make CMakeFiles/ffmpegCamera.dir/source/mRecorder.cpp.i
+.PHONY : source/mRecorder.cpp.i
+
+source/mRecorder.s: source/mRecorder.cpp.s
+
+.PHONY : source/mRecorder.s
+
+# target to generate assembly for a file
+source/mRecorder.cpp.s:
+	$(MAKE) -f CMakeFiles\ffmpegCamera.dir\build.make CMakeFiles/ffmpegCamera.dir/source/mRecorder.cpp.s
+.PHONY : source/mRecorder.cpp.s
 
 source/main.obj: source/main.cpp.obj
 
@@ -128,7 +182,7 @@ source/main.obj: source/main.cpp.obj
 
 # target to build an object file
 source/main.cpp.obj:
-	$(MAKE) -f CMakeFiles\ffmpegTest.dir\build.make CMakeFiles/ffmpegTest.dir/source/main.cpp.obj
+	$(MAKE) -f CMakeFiles\ffmpegCamera.dir\build.make CMakeFiles/ffmpegCamera.dir/source/main.cpp.obj
 .PHONY : source/main.cpp.obj
 
 source/main.i: source/main.cpp.i
@@ -137,7 +191,7 @@ source/main.i: source/main.cpp.i
 
 # target to preprocess a source file
 source/main.cpp.i:
-	$(MAKE) -f CMakeFiles\ffmpegTest.dir\build.make CMakeFiles/ffmpegTest.dir/source/main.cpp.i
+	$(MAKE) -f CMakeFiles\ffmpegCamera.dir\build.make CMakeFiles/ffmpegCamera.dir/source/main.cpp.i
 .PHONY : source/main.cpp.i
 
 source/main.s: source/main.cpp.s
@@ -146,8 +200,35 @@ source/main.s: source/main.cpp.s
 
 # target to generate assembly for a file
 source/main.cpp.s:
-	$(MAKE) -f CMakeFiles\ffmpegTest.dir\build.make CMakeFiles/ffmpegTest.dir/source/main.cpp.s
+	$(MAKE) -f CMakeFiles\ffmpegCamera.dir\build.make CMakeFiles/ffmpegCamera.dir/source/main.cpp.s
 .PHONY : source/main.cpp.s
+
+source/typeAInclude.obj: source/typeAInclude.cpp.obj
+
+.PHONY : source/typeAInclude.obj
+
+# target to build an object file
+source/typeAInclude.cpp.obj:
+	$(MAKE) -f CMakeFiles\ffmpegCamera.dir\build.make CMakeFiles/ffmpegCamera.dir/source/typeAInclude.cpp.obj
+.PHONY : source/typeAInclude.cpp.obj
+
+source/typeAInclude.i: source/typeAInclude.cpp.i
+
+.PHONY : source/typeAInclude.i
+
+# target to preprocess a source file
+source/typeAInclude.cpp.i:
+	$(MAKE) -f CMakeFiles\ffmpegCamera.dir\build.make CMakeFiles/ffmpegCamera.dir/source/typeAInclude.cpp.i
+.PHONY : source/typeAInclude.cpp.i
+
+source/typeAInclude.s: source/typeAInclude.cpp.s
+
+.PHONY : source/typeAInclude.s
+
+# target to generate assembly for a file
+source/typeAInclude.cpp.s:
+	$(MAKE) -f CMakeFiles\ffmpegCamera.dir\build.make CMakeFiles/ffmpegCamera.dir/source/typeAInclude.cpp.s
+.PHONY : source/typeAInclude.cpp.s
 
 # Help Target
 help:
@@ -155,12 +236,21 @@ help:
 	@echo ... all (the default if no target is provided)
 	@echo ... clean
 	@echo ... depend
-	@echo ... ffmpegTest
+	@echo ... ffmpegCamera
 	@echo ... edit_cache
 	@echo ... rebuild_cache
+	@echo ... source/mPlayer.obj
+	@echo ... source/mPlayer.i
+	@echo ... source/mPlayer.s
+	@echo ... source/mRecorder.obj
+	@echo ... source/mRecorder.i
+	@echo ... source/mRecorder.s
 	@echo ... source/main.obj
 	@echo ... source/main.i
 	@echo ... source/main.s
+	@echo ... source/typeAInclude.obj
+	@echo ... source/typeAInclude.i
+	@echo ... source/typeAInclude.s
 .PHONY : help
 
 

@@ -53,50 +53,50 @@ RM = D:\CMake\bin\cmake.exe -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = D:\proj\gitFFmpeg
+CMAKE_SOURCE_DIR = D:\proj\ffmpegCamera
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = D:\proj\gitFFmpeg\bin
+CMAKE_BINARY_DIR = D:\proj\ffmpegCamera\bin
 
 #=============================================================================
 # Directory level rules for the build root directory
 
 # The main recursive "clean" target.
-clean: CMakeFiles/ffmpegTest.dir/clean
+clean: CMakeFiles/ffmpegCamera.dir/clean
 
 .PHONY : clean
 
 #=============================================================================
-# Target rules for target CMakeFiles/ffmpegTest.dir
+# Target rules for target CMakeFiles/ffmpegCamera.dir
 
 # All Build rule for target.
-CMakeFiles/ffmpegTest.dir/all:
-	$(MAKE) -f CMakeFiles\ffmpegTest.dir\build.make CMakeFiles/ffmpegTest.dir/depend
-	$(MAKE) -f CMakeFiles\ffmpegTest.dir\build.make CMakeFiles/ffmpegTest.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=D:\proj\gitFFmpeg\bin\CMakeFiles --progress-num=1,2 "Built target ffmpegTest"
-.PHONY : CMakeFiles/ffmpegTest.dir/all
+CMakeFiles/ffmpegCamera.dir/all:
+	$(MAKE) -f CMakeFiles\ffmpegCamera.dir\build.make CMakeFiles/ffmpegCamera.dir/depend
+	$(MAKE) -f CMakeFiles\ffmpegCamera.dir\build.make CMakeFiles/ffmpegCamera.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=D:\proj\ffmpegCamera\bin\CMakeFiles --progress-num=1,2,3,4,5 "Built target ffmpegCamera"
+.PHONY : CMakeFiles/ffmpegCamera.dir/all
 
 # Include target in all.
-all: CMakeFiles/ffmpegTest.dir/all
+all: CMakeFiles/ffmpegCamera.dir/all
 
 .PHONY : all
 
 # Build rule for subdir invocation for target.
-CMakeFiles/ffmpegTest.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start D:\proj\gitFFmpeg\bin\CMakeFiles 2
-	$(MAKE) -f CMakeFiles\Makefile2 CMakeFiles/ffmpegTest.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start D:\proj\gitFFmpeg\bin\CMakeFiles 0
-.PHONY : CMakeFiles/ffmpegTest.dir/rule
+CMakeFiles/ffmpegCamera.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start D:\proj\ffmpegCamera\bin\CMakeFiles 5
+	$(MAKE) -f CMakeFiles\Makefile2 CMakeFiles/ffmpegCamera.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start D:\proj\ffmpegCamera\bin\CMakeFiles 0
+.PHONY : CMakeFiles/ffmpegCamera.dir/rule
 
 # Convenience name for target.
-ffmpegTest: CMakeFiles/ffmpegTest.dir/rule
+ffmpegCamera: CMakeFiles/ffmpegCamera.dir/rule
 
-.PHONY : ffmpegTest
+.PHONY : ffmpegCamera
 
 # clean rule for target.
-CMakeFiles/ffmpegTest.dir/clean:
-	$(MAKE) -f CMakeFiles\ffmpegTest.dir\build.make CMakeFiles/ffmpegTest.dir/clean
-.PHONY : CMakeFiles/ffmpegTest.dir/clean
+CMakeFiles/ffmpegCamera.dir/clean:
+	$(MAKE) -f CMakeFiles\ffmpegCamera.dir\build.make CMakeFiles/ffmpegCamera.dir/clean
+.PHONY : CMakeFiles/ffmpegCamera.dir/clean
 
 #=============================================================================
 # Special targets to cleanup operation of make.
