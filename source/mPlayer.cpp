@@ -183,7 +183,13 @@ int mPlayer::SDLDisplay() {
             // 转成YUV
             sws_scale(convertCtx, (const unsigned char* const*)pFrame->data, pFrame->linesize,
             0, pCodecCtx->height, pFrameYUV->data, pFrameYUV->linesize);
-            
+
+            if (videoRecorder) {
+                printf("start recording\n");
+                videoRecorder->recordByFrame(convertCtx, pFrame);
+                printf("record complete\n"); 
+            }              
+
             // 把yuv图像更新到贴图上
             SDL_UpdateTexture(tex, NULL, pFrameYUV->data[0], pFrameYUV->linesize[0]);
             // 清理上一帧图像
@@ -192,10 +198,6 @@ int mPlayer::SDLDisplay() {
             SDL_RenderCopy(render, tex, NULL, NULL);
             // 把缓冲区的render画上去
             SDL_RenderPresent(render);
-
-            if (videoRecorder) {
-                videoRecorder->recordByFrame(pFrameYUV);
-            }
 
             av_packet_free(&readPkt);
         } else if (keyState[SDL_SCANCODE_ESCAPE]) {
@@ -211,6 +213,7 @@ int mPlayer::SDLDisplay() {
 
 int mPlayer::setRecorder(mRecorder* recorder) {
     videoRecorder = recorder;
+    videoRecorder->init(pCodecCtx->width, pCodecCtx->height);
     return 0;
 }
 

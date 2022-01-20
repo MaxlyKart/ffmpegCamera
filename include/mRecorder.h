@@ -7,17 +7,21 @@
 class mRecorder {
     private:
     AVFormatContext *outputFormatCtx;
-    AVOutputFormat *outputFormat;
     AVStream *outputStream;
     AVCodecContext *codecCtx;
+    AVFrame *outputFrame;
 
     std::chrono::steady_clock::time_point startTime;
     bool isRecording;
+    int width;
+    int height;
+    const char* filename;
+    int nextPts;
 
-    int initFFmpeg(const char *filePath);
     public:
-    mRecorder(const char* filePath);
-    int recordByFrame(AVFrame *pFrameYUV);
+    mRecorder(const char* filename);
+    int recordByFrame(SwsContext *convertCtx, AVFrame *pFrame);
+    int init(int width, int height);
     ~mRecorder();
 };
 

@@ -1,14 +1,19 @@
 #include "mRecorder.h"
 
+int mRecorder::init(int width, int height) {
+    this->width = width;
+    this->height = height;
 
-int mRecorder::initFFmpeg(const char * filePath) {
     // AVIOContext --> AVFormatContext --> AVOutputFormat --> AVStream --> AVCodecContext --> AVCodec
-    int ret = avformat_alloc_output_context2(&outputFormatCtx, NULL, NULL, filePath);
+    // 这里会利用filePath的后缀来解析formatCtx的封装格式
+    int ret = avformat_alloc_output_context2(&outputFormatCtx, NULL, NULL, filename);
     if (ret != 0) {
         printf("Alloc output context error! ret:%d", ret);
+        // 错误的话指定格式
+        avformat_alloc_output_context2(&outputFormatCtx, NULL, "mpeg", filename);
         return ret;
     }
-    outputFormat = outputFormatCtx->oformat;
+    AVOutputFormat *outputFormat = outputFormatCtx->oformat;
     // 分配code_id
     outputFormat->video_codec = AV_CODEC_ID_H264;
     // 找编码器
@@ -19,6 +24,11 @@ int mRecorder::initFFmpeg(const char * filePath) {
     // 设置上下文
     codecCtx->codec_id = outputFormat->video_codec;
     codecCtx->pix_fmt = AV_PIX_FMT_YUV420P;
+    codecCtx->time_base = {1,25};
+    codecCtx->bit_rate = 400000;
+    codecCtx->gop_size = 12;
+    codecCtx->width = width;
+    codecCtx->height = height;
 
     if (outputFormat->flags & AVFMT_GLOBALHEADER) {
         codecCtx->flags |= AV_CODEC_FLAG_GLOBAL_HEADER;
@@ -37,6 +47,7 @@ int mRecorder::initFFmpeg(const char * filePath) {
         return ret;
     }
 
+    outputStream->id = outputFormatCtx->nb_streams - 1;
     // 把codecCtx的参数赋值给Stream的codecpar
     ret = avcodec_parameters_from_context(outputStream->codecpar, codecCtx);
     if(ret != 0){
@@ -45,7 +56,7 @@ int mRecorder::initFFmpeg(const char * filePath) {
     }
 
     // 打开AVIOContext
-    ret = avio_open(&outputFormatCtx->pb, filePath, AVIO_FLAG_WRITE);
+    ret = avio_open(&outputFormatCtx->pb, filename, AVIO_FLAG_WRITE);
     if(ret != 0){
         printf("Open IO context error! ret:%d", ret);
         return ret;
@@ -58,28 +69,65 @@ int mRecorder::initFFmpeg(const char * filePath) {
     }
 }
 
-mRecorder::mRecorder(const char* filePath) {
-    initFFmpeg(filePath);
+mRecorder::mRecorder(const char* filename) {
     isRecording = false;
+    this->filename = filename;
+    nextPts = 0;
 }
 
-int mRecorder::recordByFrame(AVFrame *pFrameYUV) {
+int mRecorder::recordByFrame(SwsContext *convertCtx, AVFrame *pFrame) {
+    // 第一次创建
     if (!isRecording) {
         startTime = std::chrono::steady_clock::now();
+        isRecording = true;
+        outputFrame = av_frame_alloc();
+        outputFrame->width = width;
+        outputFrame->height = height;
+        outputFrame->format = AV_PIX_FMT_YUV420P;
+        int ret = av_frame_get_buffer(outputFrame, 0);
+        if (ret < 0) {
+            printf("get buffer error! ret:%d", ret);
+        }
+        // unsigned char *outBuffer=(unsigned char *)av_malloc(
+        // av_image_get_buffer_size(AV_PIX_FMT_YUV420P, width, height,1
+        // ));
+        // // 将outBuffer关联到FrameYUV上
+        // av_image_fill_arrays(outputFrame->data, outputFrame->linesize, outBuffer,
+        //     AV_PIX_FMT_YUV420P, width, height, 1);
+        
     }
-    auto nowTime = std::chrono::steady_clock::now();
-    pFrameYUV->pts = std::chrono::duration_cast<std::chrono::milliseconds>(nowTime - startTime).count();
+    // auto nowTime = std::chrono::steady_clock::now();
+    // outputFrame->pts = std::chrono::duration_cast<std::chrono::milliseconds>(nowTime - startTime).count();
+    outputFrame->pts = nextPts++;
 
-    int ret = avcodec_send_frame(codecCtx, pFrameYUV);
+    int ret;
+    // 转成YUV
+    sws_scale(convertCtx, (const unsigned char* const*)pFrame->data, pFrame->linesize,
+    0, height, outputFrame->data, outputFrame->linesize);
+
+    if (av_frame_make_writable(outputFrame) < 0)
+        exit(1);
+
+    // printf("frame1 wid:%d, hei%d, frame2 wid:%d, hei:%d, format1:%d, format2:%d, data2:%d", outputFrame->width,
+    // outputFrame->height, pFrameYUV->width, pFrameYUV->height, outputFrame->format, pFrameYUV->format, pFrameYUV->data[0]);
+
+    // int ret = av_frame_copy(outputFrame, pFrameYUV);
+    // if (ret != 0) {
+    //     printf("Frame copy error, ret: %d", ret);
+    // }
+
+    ret = avcodec_send_frame(codecCtx, outputFrame);
+    printf("send frame ret:%d\n", ret);
+    AVPacket packet;
+    av_init_packet(&packet);
     if(ret == 0){
-        AVPacket packet;
-        av_init_packet(&packet);
         ret = avcodec_receive_packet(codecCtx, &packet);
         if(ret == 0){
             av_packet_rescale_ts(&packet, codecCtx->time_base, outputStream->time_base);
             av_write_frame(outputFormatCtx, &packet);
+            printf("write frame\n");
         }
-        av_packet_unref(&packet);
+        // av_packet_unref(&packet);
     }
 }
 
@@ -97,6 +145,6 @@ mRecorder::~mRecorder() {
         avio_close(outputFormatCtx->pb);
 
         avformat_free_context(outputFormatCtx);
-        outputFormat = NULL;
     }
 }
+
