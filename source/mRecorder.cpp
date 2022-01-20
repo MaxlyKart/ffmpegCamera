@@ -88,16 +88,7 @@ int mRecorder::recordByFrame(SwsContext *convertCtx, AVFrame *pFrame) {
         if (ret < 0) {
             printf("get buffer error! ret:%d", ret);
         }
-        // unsigned char *outBuffer=(unsigned char *)av_malloc(
-        // av_image_get_buffer_size(AV_PIX_FMT_YUV420P, width, height,1
-        // ));
-        // // 将outBuffer关联到FrameYUV上
-        // av_image_fill_arrays(outputFrame->data, outputFrame->linesize, outBuffer,
-        //     AV_PIX_FMT_YUV420P, width, height, 1);
-        
     }
-    // auto nowTime = std::chrono::steady_clock::now();
-    // outputFrame->pts = std::chrono::duration_cast<std::chrono::milliseconds>(nowTime - startTime).count();
     outputFrame->pts = nextPts++;
 
     int ret;
@@ -108,16 +99,7 @@ int mRecorder::recordByFrame(SwsContext *convertCtx, AVFrame *pFrame) {
     if (av_frame_make_writable(outputFrame) < 0)
         exit(1);
 
-    // printf("frame1 wid:%d, hei%d, frame2 wid:%d, hei:%d, format1:%d, format2:%d, data2:%d", outputFrame->width,
-    // outputFrame->height, pFrameYUV->width, pFrameYUV->height, outputFrame->format, pFrameYUV->format, pFrameYUV->data[0]);
-
-    // int ret = av_frame_copy(outputFrame, pFrameYUV);
-    // if (ret != 0) {
-    //     printf("Frame copy error, ret: %d", ret);
-    // }
-
     ret = avcodec_send_frame(codecCtx, outputFrame);
-    printf("send frame ret:%d\n", ret);
     AVPacket packet;
     av_init_packet(&packet);
     if(ret == 0){
@@ -125,7 +107,6 @@ int mRecorder::recordByFrame(SwsContext *convertCtx, AVFrame *pFrame) {
         if(ret == 0){
             av_packet_rescale_ts(&packet, codecCtx->time_base, outputStream->time_base);
             av_write_frame(outputFormatCtx, &packet);
-            printf("write frame\n");
         }
         // av_packet_unref(&packet);
     }
