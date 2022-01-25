@@ -1,4 +1,5 @@
 file(REMOVE_RECURSE
+  "CMakeFiles/ffmpegCamera.dir/source/mFilter.cpp.obj"
   "CMakeFiles/ffmpegCamera.dir/source/mPlayer.cpp.obj"
   "CMakeFiles/ffmpegCamera.dir/source/mRecorder.cpp.obj"
   "CMakeFiles/ffmpegCamera.dir/source/main.cpp.obj"

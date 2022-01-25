@@ -56,10 +56,24 @@ include CMakeFiles/ffmpegCamera.dir/progress.make
 # Include the compile flags for this target's objects.
 include CMakeFiles/ffmpegCamera.dir/flags.make
 
+CMakeFiles/ffmpegCamera.dir/source/mFilter.cpp.obj: CMakeFiles/ffmpegCamera.dir/flags.make
+CMakeFiles/ffmpegCamera.dir/source/mFilter.cpp.obj: CMakeFiles/ffmpegCamera.dir/includes_CXX.rsp
+CMakeFiles/ffmpegCamera.dir/source/mFilter.cpp.obj: ../source/mFilter.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\proj\ffmpegCamera\bin\CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/ffmpegCamera.dir/source/mFilter.cpp.obj"
+	D:\mingw\mingw64\bin\g++.exe  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\ffmpegCamera.dir\source\mFilter.cpp.obj -c D:\proj\ffmpegCamera\source\mFilter.cpp
+
+CMakeFiles/ffmpegCamera.dir/source/mFilter.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/ffmpegCamera.dir/source/mFilter.cpp.i"
+	D:\mingw\mingw64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E D:\proj\ffmpegCamera\source\mFilter.cpp > CMakeFiles\ffmpegCamera.dir\source\mFilter.cpp.i
+
+CMakeFiles/ffmpegCamera.dir/source/mFilter.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/ffmpegCamera.dir/source/mFilter.cpp.s"
+	D:\mingw\mingw64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S D:\proj\ffmpegCamera\source\mFilter.cpp -o CMakeFiles\ffmpegCamera.dir\source\mFilter.cpp.s
+
 CMakeFiles/ffmpegCamera.dir/source/mPlayer.cpp.obj: CMakeFiles/ffmpegCamera.dir/flags.make
 CMakeFiles/ffmpegCamera.dir/source/mPlayer.cpp.obj: CMakeFiles/ffmpegCamera.dir/includes_CXX.rsp
 CMakeFiles/ffmpegCamera.dir/source/mPlayer.cpp.obj: ../source/mPlayer.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\proj\ffmpegCamera\bin\CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/ffmpegCamera.dir/source/mPlayer.cpp.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\proj\ffmpegCamera\bin\CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/ffmpegCamera.dir/source/mPlayer.cpp.obj"
 	D:\mingw\mingw64\bin\g++.exe  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\ffmpegCamera.dir\source\mPlayer.cpp.obj -c D:\proj\ffmpegCamera\source\mPlayer.cpp
 
 CMakeFiles/ffmpegCamera.dir/source/mPlayer.cpp.i: cmake_force
@@ -73,7 +87,7 @@ CMakeFiles/ffmpegCamera.dir/source/mPlayer.cpp.s: cmake_force
 CMakeFiles/ffmpegCamera.dir/source/mRecorder.cpp.obj: CMakeFiles/ffmpegCamera.dir/flags.make
 CMakeFiles/ffmpegCamera.dir/source/mRecorder.cpp.obj: CMakeFiles/ffmpegCamera.dir/includes_CXX.rsp
 CMakeFiles/ffmpegCamera.dir/source/mRecorder.cpp.obj: ../source/mRecorder.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\proj\ffmpegCamera\bin\CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/ffmpegCamera.dir/source/mRecorder.cpp.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\proj\ffmpegCamera\bin\CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/ffmpegCamera.dir/source/mRecorder.cpp.obj"
 	D:\mingw\mingw64\bin\g++.exe  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\ffmpegCamera.dir\source\mRecorder.cpp.obj -c D:\proj\ffmpegCamera\source\mRecorder.cpp
 
 CMakeFiles/ffmpegCamera.dir/source/mRecorder.cpp.i: cmake_force
@@ -87,7 +101,7 @@ CMakeFiles/ffmpegCamera.dir/source/mRecorder.cpp.s: cmake_force
 CMakeFiles/ffmpegCamera.dir/source/main.cpp.obj: CMakeFiles/ffmpegCamera.dir/flags.make
 CMakeFiles/ffmpegCamera.dir/source/main.cpp.obj: CMakeFiles/ffmpegCamera.dir/includes_CXX.rsp
 CMakeFiles/ffmpegCamera.dir/source/main.cpp.obj: ../source/main.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\proj\ffmpegCamera\bin\CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/ffmpegCamera.dir/source/main.cpp.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\proj\ffmpegCamera\bin\CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/ffmpegCamera.dir/source/main.cpp.obj"
 	D:\mingw\mingw64\bin\g++.exe  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\ffmpegCamera.dir\source\main.cpp.obj -c D:\proj\ffmpegCamera\source\main.cpp
 
 CMakeFiles/ffmpegCamera.dir/source/main.cpp.i: cmake_force
@@ -101,7 +115,7 @@ CMakeFiles/ffmpegCamera.dir/source/main.cpp.s: cmake_force
 CMakeFiles/ffmpegCamera.dir/source/typeAInclude.cpp.obj: CMakeFiles/ffmpegCamera.dir/flags.make
 CMakeFiles/ffmpegCamera.dir/source/typeAInclude.cpp.obj: CMakeFiles/ffmpegCamera.dir/includes_CXX.rsp
 CMakeFiles/ffmpegCamera.dir/source/typeAInclude.cpp.obj: ../source/typeAInclude.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\proj\ffmpegCamera\bin\CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/ffmpegCamera.dir/source/typeAInclude.cpp.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\proj\ffmpegCamera\bin\CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/ffmpegCamera.dir/source/typeAInclude.cpp.obj"
 	D:\mingw\mingw64\bin\g++.exe  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\ffmpegCamera.dir\source\typeAInclude.cpp.obj -c D:\proj\ffmpegCamera\source\typeAInclude.cpp
 
 CMakeFiles/ffmpegCamera.dir/source/typeAInclude.cpp.i: cmake_force
@@ -114,6 +128,7 @@ CMakeFiles/ffmpegCamera.dir/source/typeAInclude.cpp.s: cmake_force
 
 # Object files for target ffmpegCamera
 ffmpegCamera_OBJECTS = \
+"CMakeFiles/ffmpegCamera.dir/source/mFilter.cpp.obj" \
 "CMakeFiles/ffmpegCamera.dir/source/mPlayer.cpp.obj" \
 "CMakeFiles/ffmpegCamera.dir/source/mRecorder.cpp.obj" \
 "CMakeFiles/ffmpegCamera.dir/source/main.cpp.obj" \
@@ -122,6 +137,7 @@ ffmpegCamera_OBJECTS = \
 # External object files for target ffmpegCamera
 ffmpegCamera_EXTERNAL_OBJECTS =
 
+ffmpegCamera.exe: CMakeFiles/ffmpegCamera.dir/source/mFilter.cpp.obj
 ffmpegCamera.exe: CMakeFiles/ffmpegCamera.dir/source/mPlayer.cpp.obj
 ffmpegCamera.exe: CMakeFiles/ffmpegCamera.dir/source/mRecorder.cpp.obj
 ffmpegCamera.exe: CMakeFiles/ffmpegCamera.dir/source/main.cpp.obj
@@ -132,7 +148,7 @@ ffmpegCamera.exe: ../lib/SDL2-devel-2.0.20-VC/SDL2-2.0.20/lib/x64/SDL2.lib
 ffmpegCamera.exe: CMakeFiles/ffmpegCamera.dir/linklibs.rsp
 ffmpegCamera.exe: CMakeFiles/ffmpegCamera.dir/objects1.rsp
 ffmpegCamera.exe: CMakeFiles/ffmpegCamera.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=D:\proj\ffmpegCamera\bin\CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Linking CXX executable ffmpegCamera.exe"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=D:\proj\ffmpegCamera\bin\CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Linking CXX executable ffmpegCamera.exe"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles\ffmpegCamera.dir\link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

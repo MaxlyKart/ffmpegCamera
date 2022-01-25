@@ -78,7 +78,7 @@ mRecorder::mRecorder(const char* filename) {
 int mRecorder::recordByFrame(SwsContext *convertCtx, AVFrame *pFrame) {
     // 第一次创建
     if (!isRecording) {
-        startTime = std::chrono::steady_clock::now();
+        recordStartTime = SDL_GetTicks64();
         isRecording = true;
         outputFrame = av_frame_alloc();
         outputFrame->width = width;
@@ -127,5 +127,9 @@ mRecorder::~mRecorder() {
 
         avformat_free_context(outputFormatCtx);
     }
+}
+
+Uint64 mRecorder::getRecordTime() {
+    return SDL_GetTicks64() - recordStartTime;
 }
 

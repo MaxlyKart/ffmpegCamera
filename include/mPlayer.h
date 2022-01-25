@@ -3,6 +3,7 @@
 
 #include "typeAInclude.h"
 #include "mRecorder.h"
+#include "mFilter.h"
 
 enum SOURCE_TYPE {
     CAM = 0,
@@ -21,12 +22,17 @@ class mPlayer{
     private:
     mRecorder *videoRecorder;
     bool threadExit;
+    Uint64 recordTime;
+    int fps;
+    bool showFPS;
 
     // ffmpeg
     AVFormatContext	*pFormatCtx;
     AVCodecContext *pCodecCtx;
     AVCodec *pCodec;
     AVStream *videoStream;
+    // filter
+    mFilter *subTitleFilter;
 
     // SDL
     SDL_Window *window;
@@ -41,6 +47,7 @@ class mPlayer{
      * @return int 
      */
     int initFFmpeg();
+
     /**
      * @brief 初始化SDL
      * 
@@ -110,6 +117,8 @@ class mPlayer{
     //  * @return int 状态码
     //  */
     // int refreshSDLThread(void *q);
+
+    int setShowFPS(bool isShow);
 };
 
 #endif

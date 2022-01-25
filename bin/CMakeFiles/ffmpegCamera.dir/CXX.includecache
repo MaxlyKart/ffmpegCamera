@@ -160,6 +160,14 @@ libavutil/rational.h
 libavfilter/version.h
 ../include/libavfilter/libavfilter/version.h
 
+../include/libavfilter/buffersink.h
+avfilter.h
+../include/libavfilter/avfilter.h
+
+../include/libavfilter/buffersrc.h
+avfilter.h
+../include/libavfilter/avfilter.h
+
 ../include/libavfilter/version.h
 libavutil/version.h
 ../include/libavfilter/libavutil/version.h
@@ -428,17 +436,21 @@ libavutil/pixfmt.h
 version.h
 ../include/libswscale/version.h
 
+../include/mFilter.h
+typeAInclude.h
+../include/typeAInclude.h
+
 ../include/mPlayer.h
 typeAInclude.h
 ../include/typeAInclude.h
 mRecorder.h
 ../include/mRecorder.h
+mFilter.h
+../include/mFilter.h
 
 ../include/mRecorder.h
 typeAInclude.h
 ../include/typeAInclude.h
-chrono
-../include/chrono
 
 ../include/typeAInclude.h
 stdio.h
@@ -451,6 +463,10 @@ libavformat/avformat.h
 ../include/libavformat/avformat.h
 libavfilter/avfilter.h
 ../include/libavfilter/avfilter.h
+libavfilter/buffersink.h
+../include/libavfilter/buffersink.h
+libavfilter/buffersrc.h
+../include/libavfilter/buffersrc.h
 libavdevice/avdevice.h
 ../include/libavdevice/avdevice.h
 libavutil/dict.h
@@ -1123,14 +1139,4 @@ close_code.h
 D:/proj/ffmpegCamera/source/mPlayer.cpp
 mPlayer.h
 D:/proj/ffmpegCamera/source/mPlayer.h
-
-D:/proj/ffmpegCamera/source/mRecorder.cpp
-mRecorder.h
-D:/proj/ffmpegCamera/source/mRecorder.h
-
-D:/proj/ffmpegCamera/source/main.cpp
-mPlayer.h
-D:/proj/ffmpegCamera/source/mPlayer.h
-mRecorder.h
-D:/proj/ffmpegCamera/source/mRecorder.h
 

@@ -122,6 +122,33 @@ ffmpegCamera/fast:
 	$(MAKE) -f CMakeFiles\ffmpegCamera.dir\build.make CMakeFiles/ffmpegCamera.dir/build
 .PHONY : ffmpegCamera/fast
 
+source/mFilter.obj: source/mFilter.cpp.obj
+
+.PHONY : source/mFilter.obj
+
+# target to build an object file
+source/mFilter.cpp.obj:
+	$(MAKE) -f CMakeFiles\ffmpegCamera.dir\build.make CMakeFiles/ffmpegCamera.dir/source/mFilter.cpp.obj
+.PHONY : source/mFilter.cpp.obj
+
+source/mFilter.i: source/mFilter.cpp.i
+
+.PHONY : source/mFilter.i
+
+# target to preprocess a source file
+source/mFilter.cpp.i:
+	$(MAKE) -f CMakeFiles\ffmpegCamera.dir\build.make CMakeFiles/ffmpegCamera.dir/source/mFilter.cpp.i
+.PHONY : source/mFilter.cpp.i
+
+source/mFilter.s: source/mFilter.cpp.s
+
+.PHONY : source/mFilter.s
+
+# target to generate assembly for a file
+source/mFilter.cpp.s:
+	$(MAKE) -f CMakeFiles\ffmpegCamera.dir\build.make CMakeFiles/ffmpegCamera.dir/source/mFilter.cpp.s
+.PHONY : source/mFilter.cpp.s
+
 source/mPlayer.obj: source/mPlayer.cpp.obj
 
 .PHONY : source/mPlayer.obj
@@ -239,6 +266,9 @@ help:
 	@echo ... ffmpegCamera
 	@echo ... edit_cache
 	@echo ... rebuild_cache
+	@echo ... source/mFilter.obj
+	@echo ... source/mFilter.i
+	@echo ... source/mFilter.s
 	@echo ... source/mPlayer.obj
 	@echo ... source/mPlayer.i
 	@echo ... source/mPlayer.s

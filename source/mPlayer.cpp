@@ -6,6 +6,7 @@ int mPlayer::initFFmpeg() {
     //Register Device
 	avdevice_register_all();
 	avformat_network_init();
+    avfilter_register_all();
 
     pFormatCtx = avformat_alloc_context();
 }
@@ -81,6 +82,13 @@ mPlayer::mPlayer(SOURCE_TYPE srcType, const char *srcName) {
     initSDL();
     threadExit = true;
     sdlThread = NULL;
+    showFPS = true;
+    recordTime = 0;
+    fps = 60;
+
+    // 添加字幕过滤器
+    subTitleFilter = NULL;
+
     // 用于错误转跳
     endOfFunc: ;
 }
@@ -114,7 +122,9 @@ int mPlayer::showVfwCapDevice() {
 }
 
 int refreshSDLThread(void *data) {
-    bool *threadExit = (bool *)data;
+    void **arr = (void **)data;
+    bool *threadExit = (bool *)arr[0];
+    int *fps = (int *)arr[1];
     // printf("%d", *threadExit);
     *threadExit = false;
     // printf("%d", *threadExit);
@@ -125,8 +135,8 @@ int refreshSDLThread(void *data) {
     // while(true) {
         // printf("while");
         SDL_PushEvent(&event);
-        // 25帧
-        SDL_Delay(40);
+
+        SDL_Delay(1000/(*fps));
     }
     event.type = SDL_BREAKEVENT;
     SDL_PushEvent(&event);
@@ -135,13 +145,17 @@ int refreshSDLThread(void *data) {
 
 int mPlayer::SDLDisplay() {
     if (!sdlThread) {
-        sdlThread = SDL_CreateThread(refreshSDLThread, "sendRefreshThread", &threadExit);
+        void *data[2];
+        data[0] = &threadExit;
+        data[1] = &fps;
+        sdlThread = SDL_CreateThread(refreshSDLThread, "sendRefreshThread", data);
     }
 
     AVPixelFormat pixFmt = ConvertDeprecatedFormat(pCodecCtx->pix_fmt);
     SwsContext* convertCtx = sws_getContext(pCodecCtx->width, pCodecCtx->height, 
     pixFmt, pCodecCtx->width, pCodecCtx->height, AV_PIX_FMT_YUV420P, SWS_BICUBIC, NULL, NULL, NULL);
 
+    // YUV输出的frame
     AVFrame *pFrameYUV = av_frame_alloc();
     unsigned char *outBuffer=(unsigned char *)av_malloc(
     av_image_get_buffer_size(AV_PIX_FMT_YUV420P,  pCodecCtx->width, pCodecCtx->height,1
@@ -184,12 +198,20 @@ int mPlayer::SDLDisplay() {
             sws_scale(convertCtx, (const unsigned char* const*)pFrame->data, pFrame->linesize,
             0, pCodecCtx->height, pFrameYUV->data, pFrameYUV->linesize);
 
+            // 录制
             if (videoRecorder) {
-                printf("start recording\n");
+                // 显示字幕
+                if (showFPS) {
+                    if (!subTitleFilter) {
+                        subTitleFilter = new mFilter(pCodecCtx);
+                    }
+                    recordTime = videoRecorder->getRecordTime();
+                    char filterDesc[1024] = { 0 };
+                    sprintf(filterDesc, "drawtext=fontsize=50:text='record time:%d fps:%d':x=100:y=100", recordTime, fps);
+                    subTitleFilter->getFilteredFrame(pFrameYUV, filterDesc);
+                }
                 videoRecorder->recordByFrame(convertCtx, pFrame);
-                printf("record complete\n"); 
-            }              
-
+            }
             // 把yuv图像更新到贴图上
             SDL_UpdateTexture(tex, NULL, pFrameYUV->data[0], pFrameYUV->linesize[0]);
             // 清理上一帧图像
@@ -223,5 +245,10 @@ mRecorder* mPlayer::getRecorder() {
 
 int mPlayer::cleanRecorder() {
     videoRecorder = NULL;
+    return 0;
+}
+
+int mPlayer::setShowFPS(bool isShow) {
+    showFPS = isShow;
     return 0;
 }

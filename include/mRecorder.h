@@ -2,7 +2,6 @@
 #define MAXLY_RECORDER
 
 #include "typeAInclude.h"
-#include "chrono"
 
 class mRecorder {
     private:
@@ -11,7 +10,7 @@ class mRecorder {
     AVCodecContext *codecCtx;
     AVFrame *outputFrame;
 
-    std::chrono::steady_clock::time_point startTime;
+    Uint64 recordStartTime;
     bool isRecording;
     int width;
     int height;
@@ -22,6 +21,7 @@ class mRecorder {
     mRecorder(const char* filename);
     int recordByFrame(SwsContext *convertCtx, AVFrame *pFrame);
     int init(int width, int height);
+    Uint64 getRecordTime();
     ~mRecorder();
 };
 
