@@ -83,8 +83,8 @@ mPlayer::mPlayer(SOURCE_TYPE srcType, const char *srcName) {
     threadExit = true;
     sdlThread = NULL;
     showFPS = true;
-    recordTime = 0;
     fps = 60;
+    maxRecordTime = -1;
 
     // 添加字幕过滤器
     subTitleFilter = NULL;
@@ -206,23 +206,26 @@ int mPlayer::SDLDisplay() {
             AVFrame *filteredFrame = NULL;
             // 录制
             if (videoRecorder) {
+                Uint64 recordTime = videoRecorder->getRecordTime();
+                if (recordTime / 1000 >= maxRecordTime && maxRecordTime != -1) {
+                    break;
+                }
                 // 显示字幕
                 if (showFPS) {
                     if (!filteredFrame) {
                         filteredFrame = av_frame_alloc();
                     }
                     subTitleFilter = new mFilter(pCodecCtx);
-                    recordTime = videoRecorder->getRecordTime();
                     char drawStr[512] = { 0 };
                     sprintf_s(drawStr, sizeof(drawStr), "drawtext=fontsize=20:text='recordTime %d fps %d':x=10:y=10",
                     recordTime / 1000, fps);
                     subTitleFilter->getFilteredFrame(pFrameYUV, drawStr);
                     delete subTitleFilter;
                 }
-                videoRecorder->recordByFrame(convertCtx, pFrame);
+                videoRecorder->recordByFrame(pFrameYUV);
             }
             // 把yuv图像更新到贴图上
-            SDL_UpdateTexture(tex, NULL, filteredFrame->data[0], filteredFrame->linesize[0]);
+            SDL_UpdateTexture(tex, NULL, pFrameYUV->data[0], pFrameYUV->linesize[0]);
             // 清理上一帧图像
             SDL_RenderClear(render);
             // 贴图更新到render上
@@ -259,5 +262,10 @@ int mPlayer::cleanRecorder() {
 
 int mPlayer::setShowFPS(bool isShow) {
     showFPS = isShow;
+    return 0;
+}
+
+int mPlayer::setRecordTime(int recordTime) {
+    this->maxRecordTime = recordTime;
     return 0;
 }

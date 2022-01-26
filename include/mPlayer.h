@@ -22,9 +22,9 @@ class mPlayer{
     private:
     mRecorder *videoRecorder;
     bool threadExit;
-    Uint64 recordTime;
     int fps;
     bool showFPS;
+    int maxRecordTime;
 
     // ffmpeg
     AVFormatContext	*pFormatCtx;
@@ -118,7 +118,21 @@ class mPlayer{
     //  */
     // int refreshSDLThread(void *q);
 
+    /**
+     * @brief 是否显示帧率
+     * 
+     * @param isShow 
+     * @return int 
+     */
     int setShowFPS(bool isShow);
+
+    /**
+     * @brief 设置录制最长时间，-1为无限制
+     * 
+     * @param recordTime 
+     * @return int 
+     */
+    int setRecordTime(int recordTime);
 };
 
 #endif

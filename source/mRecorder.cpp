@@ -72,34 +72,19 @@ int mRecorder::init(int width, int height) {
 mRecorder::mRecorder(const char* filename) {
     isRecording = false;
     this->filename = filename;
-    nextPts = 0;
+    recordStartTime = -1;
 }
 
-int mRecorder::recordByFrame(SwsContext *convertCtx, AVFrame *pFrame) {
+int mRecorder::recordByFrame(AVFrame *pFrame) {
     // 第一次创建
     if (!isRecording) {
         recordStartTime = SDL_GetTicks64();
         isRecording = true;
-        outputFrame = av_frame_alloc();
-        outputFrame->width = width;
-        outputFrame->height = height;
-        outputFrame->format = AV_PIX_FMT_YUV420P;
-        int ret = av_frame_get_buffer(outputFrame, 0);
-        if (ret < 0) {
-            printf("get buffer error! ret:%d", ret);
-        }
     }
-    outputFrame->pts = nextPts++;
 
-    int ret;
-    // 转成YUV
-    sws_scale(convertCtx, (const unsigned char* const*)pFrame->data, pFrame->linesize,
-    0, height, outputFrame->data, outputFrame->linesize);
-
-    if (av_frame_make_writable(outputFrame) < 0)
+    if (av_frame_make_writable(pFrame) < 0)
         exit(1);
-
-    ret = avcodec_send_frame(codecCtx, outputFrame);
+    int ret = avcodec_send_frame(codecCtx, pFrame);
     AVPacket packet;
     av_init_packet(&packet);
     if(ret == 0){
@@ -130,6 +115,6 @@ mRecorder::~mRecorder() {
 }
 
 Uint64 mRecorder::getRecordTime() {
-    return SDL_GetTicks64() - recordStartTime;
+    return recordStartTime ? SDL_GetTicks64() - recordStartTime : 0;
 }
 

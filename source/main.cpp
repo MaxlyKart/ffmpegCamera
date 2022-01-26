@@ -7,6 +7,7 @@ int main (int argc, char** args) {
     // mPlayer::showDShowDevice();
     player->setRecorder(recorder);
     // player->setShowFPS(false);
+    player->setRecordTime(10);
     player->SDLDisplay();
     delete recorder;
     delete player;

@@ -12,9 +12,6 @@ class mFilter {
     AVFilterInOut *inStru;
     AVFilterInOut *outStru;
 
-    AVFrame *outFrame;
-    unsigned char *frameBuffer;
-
     public:
     mFilter(AVCodecContext *pCodecCtx);
     int getFilteredFrame(AVFrame *inFrame, char *drawStr);
