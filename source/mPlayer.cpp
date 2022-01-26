@@ -225,7 +225,9 @@ int mPlayer::SDLDisplay() {
                 videoRecorder->recordByFrame(pFrameYUV);
             }
             // 把yuv图像更新到贴图上
-            SDL_UpdateTexture(tex, NULL, pFrameYUV->data[0], pFrameYUV->linesize[0]);
+            SDL_UpdateYUVTexture(tex, NULL, pFrameYUV->data[0], pFrameYUV->linesize[0],
+            pFrameYUV->data[1], pFrameYUV->linesize[1],
+            pFrameYUV->data[2], pFrameYUV->linesize[2]);
             // 清理上一帧图像
             SDL_RenderClear(render);
             // 贴图更新到render上
