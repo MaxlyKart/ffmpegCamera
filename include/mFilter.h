@@ -2,6 +2,7 @@
 #define MAXLY_FILTER
 
 #include "typeAInclude.h"
+#include <string>
 
 class mFilter {
     private:
@@ -11,9 +12,12 @@ class mFilter {
     AVFilterInOut *inStru;
     AVFilterInOut *outStru;
 
+    AVFrame *outFrame;
+    unsigned char *frameBuffer;
+
     public:
     mFilter(AVCodecContext *pCodecCtx);
-    AVFrame* getFilteredFrame(AVFrame *inFrame, const char *drawStr);
+    int getFilteredFrame(AVFrame *inFrame, char *drawStr);
     ~mFilter();
 };
 

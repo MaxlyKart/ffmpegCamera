@@ -163,6 +163,10 @@ int mPlayer::SDLDisplay() {
 	// 将outBuffer关联到FrameYUV上
     av_image_fill_arrays(pFrameYUV->data, pFrameYUV->linesize, outBuffer,
 		AV_PIX_FMT_YUV420P, pCodecCtx->width, pCodecCtx->height, 1);
+    pFrameYUV->width = pCodecCtx->width;
+    pFrameYUV->height = pCodecCtx->height;
+    pFrameYUV->format = AV_PIX_FMT_YUV420P;
+    int nextPts = 0;
     
     while(true) {
         SDL_Event event;
@@ -197,23 +201,28 @@ int mPlayer::SDLDisplay() {
             // 转成YUV
             sws_scale(convertCtx, (const unsigned char* const*)pFrame->data, pFrame->linesize,
             0, pCodecCtx->height, pFrameYUV->data, pFrameYUV->linesize);
+            pFrameYUV->pts = nextPts++;
 
+            AVFrame *filteredFrame = NULL;
             // 录制
             if (videoRecorder) {
                 // 显示字幕
                 if (showFPS) {
-                    if (!subTitleFilter) {
-                        subTitleFilter = new mFilter(pCodecCtx);
+                    if (!filteredFrame) {
+                        filteredFrame = av_frame_alloc();
                     }
+                    subTitleFilter = new mFilter(pCodecCtx);
                     recordTime = videoRecorder->getRecordTime();
-                    char filterDesc[1024] = { 0 };
-                    sprintf(filterDesc, "drawtext=fontsize=50:text='record time:%d fps:%d':x=100:y=100", recordTime, fps);
-                    subTitleFilter->getFilteredFrame(pFrameYUV, filterDesc);
+                    char drawStr[512] = { 0 };
+                    sprintf_s(drawStr, sizeof(drawStr), "drawtext=fontsize=20:text='recordTime %d fps %d':x=10:y=10",
+                    recordTime / 1000, fps);
+                    subTitleFilter->getFilteredFrame(pFrameYUV, drawStr);
+                    delete subTitleFilter;
                 }
                 videoRecorder->recordByFrame(convertCtx, pFrame);
             }
             // 把yuv图像更新到贴图上
-            SDL_UpdateTexture(tex, NULL, pFrameYUV->data[0], pFrameYUV->linesize[0]);
+            SDL_UpdateTexture(tex, NULL, filteredFrame->data[0], filteredFrame->linesize[0]);
             // 清理上一帧图像
             SDL_RenderClear(render);
             // 贴图更新到render上

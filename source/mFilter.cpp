@@ -71,27 +71,29 @@ mFilter::~mFilter() {
     }
 }
 
-AVFrame* mFilter::getFilteredFrame(AVFrame *inFrame, const char *drawStr) {
+int mFilter::getFilteredFrame(AVFrame *inFrame, char *drawStr) {
     int ret = 0;
     ret = avfilter_graph_parse_ptr(filterGraph, drawStr, &inStru, &outStru, NULL);
     if (ret < 0) {
         printf("graph parse error, ret:%d\n", ret);
-        return inFrame;
+        return ret;
     }
     ret = avfilter_graph_config(filterGraph, NULL);
     if (ret < 0) {
         printf("graph config error, ret:%d\n", ret);
-        return inFrame;
+        return ret;
     }
+
     ret = av_buffersrc_add_frame(filterInCtx, inFrame);
     if (ret < 0) {
         printf("add frame error, ret:%d\n", ret);
-        return inFrame;
+        return ret;
     }
+
     ret = av_buffersink_get_frame(filterOutCtx, inFrame);
     if (ret < 0) {
         printf("get frame error, ret:%d\n", ret);
-        return inFrame;
+        return ret;
     }
-    return inFrame;
+    return ret;
 }
