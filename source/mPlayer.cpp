@@ -216,7 +216,10 @@ int mPlayer::SDLDisplay() {
                         filteredFrame = av_frame_alloc();
                     }
                     char drawStr[512] = { 0 };
-                    sprintf_s(drawStr, sizeof(drawStr), "drawtext=fontsize=20:text='recordTime %d fps %d':x=10:y=10",
+                    time_t nowTime = time(NULL);
+	                tm* tmNow = localtime(&nowTime);
+                    sprintf_s(drawStr, sizeof(drawStr), "drawtext=fontsize=20:text='now time %d/%d/%d %d-%02d-%02d\nrecordTime %d\nfps %d\n':x=10:y=10",
+                    tmNow->tm_year + 1900, tmNow->tm_mon + 1, tmNow->tm_mday, tmNow->tm_hour, tmNow->tm_min, tmNow->tm_sec,
                     recordTime / 1000, fps);
                     subTitleFilter = new mFilter(pCodecCtx, drawStr);
                     subTitleFilter->getFilteredFrame(pFrameYUV);
