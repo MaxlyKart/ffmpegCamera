@@ -439,6 +439,8 @@ version.h
 ../include/mFilter.h
 typeAInclude.h
 ../include/typeAInclude.h
+string
+-
 
 ../include/mPlayer.h
 typeAInclude.h
@@ -1136,7 +1138,17 @@ close_code.h
 
 ../lib/SDL2-devel-2.0.20-VC/SDL2-2.0.20/include/close_code.h
 
+D:/proj/ffmpegCamera/source/mFilter.cpp
+mFilter.h
+D:/proj/ffmpegCamera/source/mFilter.h
+
 D:/proj/ffmpegCamera/source/mPlayer.cpp
 mPlayer.h
 D:/proj/ffmpegCamera/source/mPlayer.h
+
+D:/proj/ffmpegCamera/source/main.cpp
+mPlayer.h
+D:/proj/ffmpegCamera/source/mPlayer.h
+mRecorder.h
+D:/proj/ffmpegCamera/source/mRecorder.h
 

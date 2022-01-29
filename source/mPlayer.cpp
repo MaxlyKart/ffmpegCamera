@@ -215,11 +215,11 @@ int mPlayer::SDLDisplay() {
                     if (!filteredFrame) {
                         filteredFrame = av_frame_alloc();
                     }
-                    subTitleFilter = new mFilter(pCodecCtx);
                     char drawStr[512] = { 0 };
                     sprintf_s(drawStr, sizeof(drawStr), "drawtext=fontsize=20:text='recordTime %d fps %d':x=10:y=10",
                     recordTime / 1000, fps);
-                    subTitleFilter->getFilteredFrame(pFrameYUV, drawStr);
+                    subTitleFilter = new mFilter(pCodecCtx, drawStr);
+                    subTitleFilter->getFilteredFrame(pFrameYUV);
                     delete subTitleFilter;
                 }
                 videoRecorder->recordByFrame(pFrameYUV);
@@ -236,11 +236,13 @@ int mPlayer::SDLDisplay() {
             SDL_RenderPresent(render);
 
             av_packet_free(&readPkt);
-        } else if (keyState[SDL_SCANCODE_ESCAPE]) {
+        }
+        if (keyState[SDL_SCANCODE_ESCAPE]) {
             printf("Detected ESC pressed, process exit");
             threadExit = true;
             break;
-        } else if (event.type == SDL_BREAKEVENT) {
+        }
+        if (event.type == SDL_BREAKEVENT) {
             break;
         }
     }

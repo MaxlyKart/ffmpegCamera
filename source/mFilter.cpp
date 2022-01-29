@@ -1,6 +1,6 @@
 #include "mFilter.h"
 
-mFilter::mFilter(AVCodecContext *pCodecCtx) {
+mFilter::mFilter(AVCodecContext *pCodecCtx, char *drawStr) {
     // 创建graph和filter和inout结构
     filterGraph = avfilter_graph_alloc();
     const AVFilter *filterIn = avfilter_get_by_name("buffer");
@@ -54,6 +54,15 @@ mFilter::mFilter(AVCodecContext *pCodecCtx) {
     // frameBuffer = (unsigned char*)av_malloc(av_image_get_buffer_size(AV_PIX_FMT_YUV420P, pCodecCtx->width, pCodecCtx->height, 1));
     // av_image_fill_arrays(outFrame->data, outFrame->linesize, frameBuffer,
     //  AV_PIX_FMT_YUV420P, pCodecCtx->width, pCodecCtx->height, 1);
+
+    ret = avfilter_graph_parse_ptr(filterGraph, drawStr, &inStru, &outStru, NULL);
+    if (ret < 0) {
+        printf("graph parse error, ret:%d\n", ret);
+    }
+    ret = avfilter_graph_config(filterGraph, NULL);
+    if (ret < 0) {
+        printf("graph config error, ret:%d\n", ret);
+    }
 }
 
 mFilter::~mFilter() {
@@ -71,19 +80,8 @@ mFilter::~mFilter() {
     }
 }
 
-int mFilter::getFilteredFrame(AVFrame *inFrame, char *drawStr) {
+int mFilter::getFilteredFrame(AVFrame *inFrame) {
     int ret = 0;
-    ret = avfilter_graph_parse_ptr(filterGraph, drawStr, &inStru, &outStru, NULL);
-    if (ret < 0) {
-        printf("graph parse error, ret:%d\n", ret);
-        return ret;
-    }
-    ret = avfilter_graph_config(filterGraph, NULL);
-    if (ret < 0) {
-        printf("graph config error, ret:%d\n", ret);
-        return ret;
-    }
-
     ret = av_buffersrc_add_frame(filterInCtx, inFrame);
     if (ret < 0) {
         printf("add frame error, ret:%d\n", ret);

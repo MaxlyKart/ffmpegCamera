@@ -13,8 +13,8 @@ class mFilter {
     AVFilterInOut *outStru;
 
     public:
-    mFilter(AVCodecContext *pCodecCtx);
-    int getFilteredFrame(AVFrame *inFrame, char *drawStr);
+    mFilter(AVCodecContext *pCodecCtx, char *drawStr);
+    int getFilteredFrame(AVFrame *inFrame);
     ~mFilter();
 };
 
