@@ -5,6 +5,7 @@
 #include "mRecorder.h"
 #include "mFilter.h"
 #include <time.h>
+#include "processStatus.h"
 
 enum SOURCE_TYPE {
     CAM = 0,
