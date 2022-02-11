@@ -3,6 +3,7 @@ file(REMOVE_RECURSE
   "CMakeFiles/ffmpegCamera.dir/source/mPlayer.cpp.obj"
   "CMakeFiles/ffmpegCamera.dir/source/mRecorder.cpp.obj"
   "CMakeFiles/ffmpegCamera.dir/source/main.cpp.obj"
+  "CMakeFiles/ffmpegCamera.dir/source/processStatus.cpp.obj"
   "CMakeFiles/ffmpegCamera.dir/source/typeAInclude.cpp.obj"
   "ffmpegCamera.exe"
   "ffmpegCamera.exe.manifest"

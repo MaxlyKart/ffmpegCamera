@@ -230,6 +230,33 @@ source/main.cpp.s:
 	$(MAKE) -f CMakeFiles\ffmpegCamera.dir\build.make CMakeFiles/ffmpegCamera.dir/source/main.cpp.s
 .PHONY : source/main.cpp.s
 
+source/processStatus.obj: source/processStatus.cpp.obj
+
+.PHONY : source/processStatus.obj
+
+# target to build an object file
+source/processStatus.cpp.obj:
+	$(MAKE) -f CMakeFiles\ffmpegCamera.dir\build.make CMakeFiles/ffmpegCamera.dir/source/processStatus.cpp.obj
+.PHONY : source/processStatus.cpp.obj
+
+source/processStatus.i: source/processStatus.cpp.i
+
+.PHONY : source/processStatus.i
+
+# target to preprocess a source file
+source/processStatus.cpp.i:
+	$(MAKE) -f CMakeFiles\ffmpegCamera.dir\build.make CMakeFiles/ffmpegCamera.dir/source/processStatus.cpp.i
+.PHONY : source/processStatus.cpp.i
+
+source/processStatus.s: source/processStatus.cpp.s
+
+.PHONY : source/processStatus.s
+
+# target to generate assembly for a file
+source/processStatus.cpp.s:
+	$(MAKE) -f CMakeFiles\ffmpegCamera.dir\build.make CMakeFiles/ffmpegCamera.dir/source/processStatus.cpp.s
+.PHONY : source/processStatus.cpp.s
+
 source/typeAInclude.obj: source/typeAInclude.cpp.obj
 
 .PHONY : source/typeAInclude.obj
@@ -278,6 +305,9 @@ help:
 	@echo ... source/main.obj
 	@echo ... source/main.i
 	@echo ... source/main.s
+	@echo ... source/processStatus.obj
+	@echo ... source/processStatus.i
+	@echo ... source/processStatus.s
 	@echo ... source/typeAInclude.obj
 	@echo ... source/typeAInclude.i
 	@echo ... source/typeAInclude.s

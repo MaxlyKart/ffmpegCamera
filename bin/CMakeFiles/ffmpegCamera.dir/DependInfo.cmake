@@ -8,6 +8,7 @@ set(CMAKE_DEPENDS_CHECK_CXX
   "D:/proj/ffmpegCamera/source/mPlayer.cpp" "D:/proj/ffmpegCamera/bin/CMakeFiles/ffmpegCamera.dir/source/mPlayer.cpp.obj"
   "D:/proj/ffmpegCamera/source/mRecorder.cpp" "D:/proj/ffmpegCamera/bin/CMakeFiles/ffmpegCamera.dir/source/mRecorder.cpp.obj"
   "D:/proj/ffmpegCamera/source/main.cpp" "D:/proj/ffmpegCamera/bin/CMakeFiles/ffmpegCamera.dir/source/main.cpp.obj"
+  "D:/proj/ffmpegCamera/source/processStatus.cpp" "D:/proj/ffmpegCamera/bin/CMakeFiles/ffmpegCamera.dir/source/processStatus.cpp.obj"
   "D:/proj/ffmpegCamera/source/typeAInclude.cpp" "D:/proj/ffmpegCamera/bin/CMakeFiles/ffmpegCamera.dir/source/typeAInclude.cpp.obj"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")

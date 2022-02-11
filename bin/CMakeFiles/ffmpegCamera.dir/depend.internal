@@ -138,6 +138,7 @@ CMakeFiles/ffmpegCamera.dir/source/mPlayer.cpp.obj
  ../include/mFilter.h
  ../include/mPlayer.h
  ../include/mRecorder.h
+ ../include/processStatus.h
  ../include/typeAInclude.h
  ../lib/SDL2-devel-2.0.20-VC/SDL2-2.0.20/include/SDL.h
  ../lib/SDL2-devel-2.0.20-VC/SDL2-2.0.20/include/SDL_assert.h
@@ -326,6 +327,7 @@ CMakeFiles/ffmpegCamera.dir/source/main.cpp.obj
  ../include/mFilter.h
  ../include/mPlayer.h
  ../include/mRecorder.h
+ ../include/processStatus.h
  ../include/typeAInclude.h
  ../lib/SDL2-devel-2.0.20-VC/SDL2-2.0.20/include/SDL.h
  ../lib/SDL2-devel-2.0.20-VC/SDL2-2.0.20/include/SDL_assert.h
@@ -377,6 +379,99 @@ CMakeFiles/ffmpegCamera.dir/source/main.cpp.obj
  ../lib/SDL2-devel-2.0.20-VC/SDL2-2.0.20/include/begin_code.h
  ../lib/SDL2-devel-2.0.20-VC/SDL2-2.0.20/include/close_code.h
  D:/proj/ffmpegCamera/source/main.cpp
+CMakeFiles/ffmpegCamera.dir/source/processStatus.cpp.obj
+ ../include/libavcodec/avcodec.h
+ ../include/libavcodec/bsf.h
+ ../include/libavcodec/codec.h
+ ../include/libavcodec/codec_desc.h
+ ../include/libavcodec/codec_id.h
+ ../include/libavcodec/codec_par.h
+ ../include/libavcodec/packet.h
+ ../include/libavcodec/version.h
+ ../include/libavdevice/avdevice.h
+ ../include/libavfilter/avfilter.h
+ ../include/libavfilter/buffersink.h
+ ../include/libavfilter/buffersrc.h
+ ../include/libavfilter/version.h
+ ../include/libavformat/avformat.h
+ ../include/libavformat/avio.h
+ ../include/libavformat/version.h
+ ../include/libavutil/attributes.h
+ ../include/libavutil/avconfig.h
+ ../include/libavutil/avutil.h
+ ../include/libavutil/buffer.h
+ ../include/libavutil/channel_layout.h
+ ../include/libavutil/common.h
+ ../include/libavutil/cpu.h
+ ../include/libavutil/dict.h
+ ../include/libavutil/error.h
+ ../include/libavutil/frame.h
+ ../include/libavutil/hwcontext.h
+ ../include/libavutil/imgutils.h
+ ../include/libavutil/intfloat.h
+ ../include/libavutil/log.h
+ ../include/libavutil/macros.h
+ ../include/libavutil/mathematics.h
+ ../include/libavutil/mem.h
+ ../include/libavutil/opt.h
+ ../include/libavutil/pixdesc.h
+ ../include/libavutil/pixfmt.h
+ ../include/libavutil/rational.h
+ ../include/libavutil/samplefmt.h
+ ../include/libavutil/version.h
+ ../include/libswscale/swscale.h
+ ../include/processStatus.h
+ ../include/typeAInclude.h
+ ../lib/SDL2-devel-2.0.20-VC/SDL2-2.0.20/include/SDL.h
+ ../lib/SDL2-devel-2.0.20-VC/SDL2-2.0.20/include/SDL_assert.h
+ ../lib/SDL2-devel-2.0.20-VC/SDL2-2.0.20/include/SDL_atomic.h
+ ../lib/SDL2-devel-2.0.20-VC/SDL2-2.0.20/include/SDL_audio.h
+ ../lib/SDL2-devel-2.0.20-VC/SDL2-2.0.20/include/SDL_blendmode.h
+ ../lib/SDL2-devel-2.0.20-VC/SDL2-2.0.20/include/SDL_clipboard.h
+ ../lib/SDL2-devel-2.0.20-VC/SDL2-2.0.20/include/SDL_config.h
+ ../lib/SDL2-devel-2.0.20-VC/SDL2-2.0.20/include/SDL_cpuinfo.h
+ ../lib/SDL2-devel-2.0.20-VC/SDL2-2.0.20/include/SDL_endian.h
+ ../lib/SDL2-devel-2.0.20-VC/SDL2-2.0.20/include/SDL_error.h
+ ../lib/SDL2-devel-2.0.20-VC/SDL2-2.0.20/include/SDL_events.h
+ ../lib/SDL2-devel-2.0.20-VC/SDL2-2.0.20/include/SDL_filesystem.h
+ ../lib/SDL2-devel-2.0.20-VC/SDL2-2.0.20/include/SDL_gamecontroller.h
+ ../lib/SDL2-devel-2.0.20-VC/SDL2-2.0.20/include/SDL_gesture.h
+ ../lib/SDL2-devel-2.0.20-VC/SDL2-2.0.20/include/SDL_haptic.h
+ ../lib/SDL2-devel-2.0.20-VC/SDL2-2.0.20/include/SDL_hidapi.h
+ ../lib/SDL2-devel-2.0.20-VC/SDL2-2.0.20/include/SDL_hints.h
+ ../lib/SDL2-devel-2.0.20-VC/SDL2-2.0.20/include/SDL_joystick.h
+ ../lib/SDL2-devel-2.0.20-VC/SDL2-2.0.20/include/SDL_keyboard.h
+ ../lib/SDL2-devel-2.0.20-VC/SDL2-2.0.20/include/SDL_keycode.h
+ ../lib/SDL2-devel-2.0.20-VC/SDL2-2.0.20/include/SDL_loadso.h
+ ../lib/SDL2-devel-2.0.20-VC/SDL2-2.0.20/include/SDL_locale.h
+ ../lib/SDL2-devel-2.0.20-VC/SDL2-2.0.20/include/SDL_log.h
+ ../lib/SDL2-devel-2.0.20-VC/SDL2-2.0.20/include/SDL_main.h
+ ../lib/SDL2-devel-2.0.20-VC/SDL2-2.0.20/include/SDL_messagebox.h
+ ../lib/SDL2-devel-2.0.20-VC/SDL2-2.0.20/include/SDL_metal.h
+ ../lib/SDL2-devel-2.0.20-VC/SDL2-2.0.20/include/SDL_misc.h
+ ../lib/SDL2-devel-2.0.20-VC/SDL2-2.0.20/include/SDL_mouse.h
+ ../lib/SDL2-devel-2.0.20-VC/SDL2-2.0.20/include/SDL_mutex.h
+ ../lib/SDL2-devel-2.0.20-VC/SDL2-2.0.20/include/SDL_pixels.h
+ ../lib/SDL2-devel-2.0.20-VC/SDL2-2.0.20/include/SDL_platform.h
+ ../lib/SDL2-devel-2.0.20-VC/SDL2-2.0.20/include/SDL_power.h
+ ../lib/SDL2-devel-2.0.20-VC/SDL2-2.0.20/include/SDL_quit.h
+ ../lib/SDL2-devel-2.0.20-VC/SDL2-2.0.20/include/SDL_rect.h
+ ../lib/SDL2-devel-2.0.20-VC/SDL2-2.0.20/include/SDL_render.h
+ ../lib/SDL2-devel-2.0.20-VC/SDL2-2.0.20/include/SDL_rwops.h
+ ../lib/SDL2-devel-2.0.20-VC/SDL2-2.0.20/include/SDL_scancode.h
+ ../lib/SDL2-devel-2.0.20-VC/SDL2-2.0.20/include/SDL_sensor.h
+ ../lib/SDL2-devel-2.0.20-VC/SDL2-2.0.20/include/SDL_shape.h
+ ../lib/SDL2-devel-2.0.20-VC/SDL2-2.0.20/include/SDL_stdinc.h
+ ../lib/SDL2-devel-2.0.20-VC/SDL2-2.0.20/include/SDL_surface.h
+ ../lib/SDL2-devel-2.0.20-VC/SDL2-2.0.20/include/SDL_system.h
+ ../lib/SDL2-devel-2.0.20-VC/SDL2-2.0.20/include/SDL_thread.h
+ ../lib/SDL2-devel-2.0.20-VC/SDL2-2.0.20/include/SDL_timer.h
+ ../lib/SDL2-devel-2.0.20-VC/SDL2-2.0.20/include/SDL_touch.h
+ ../lib/SDL2-devel-2.0.20-VC/SDL2-2.0.20/include/SDL_version.h
+ ../lib/SDL2-devel-2.0.20-VC/SDL2-2.0.20/include/SDL_video.h
+ ../lib/SDL2-devel-2.0.20-VC/SDL2-2.0.20/include/begin_code.h
+ ../lib/SDL2-devel-2.0.20-VC/SDL2-2.0.20/include/close_code.h
+ D:/proj/ffmpegCamera/source/processStatus.cpp
 CMakeFiles/ffmpegCamera.dir/source/typeAInclude.cpp.obj
  ../include/libavcodec/avcodec.h
  ../include/libavcodec/bsf.h

@@ -451,8 +451,18 @@ mFilter.h
 ../include/mFilter.h
 time.h
 -
+processStatus.h
+../include/processStatus.h
 
 ../include/mRecorder.h
+typeAInclude.h
+../include/typeAInclude.h
+
+../include/processStatus.h
+windows.h
+../include/windows.h
+psapi.h
+../include/psapi.h
 typeAInclude.h
 ../include/typeAInclude.h
 

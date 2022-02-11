@@ -43,9 +43,9 @@ mPlayer::mPlayer(SOURCE_TYPE srcType, const char *srcName) {
         }
         
         // 分辨率
-        // av_dict_set(&option, "video_size", "500x300", 0);
+        av_dict_set(&option, "video_size", "640x480", 0);
         // 设置帧率
-        // av_dict_set(&option, "framerate", "25", 0);
+        // av_dict_set(&option, "framerate", "30", 0);
     }
 
     // 打开输入，将图像放进pFormatCtx的stream
@@ -83,7 +83,7 @@ mPlayer::mPlayer(SOURCE_TYPE srcType, const char *srcName) {
     threadExit = true;
     sdlThread = NULL;
     showFPS = true;
-    fps = 60;
+    fps = 30;
     maxRecordTime = -1;
 
     // 添加字幕过滤器
@@ -217,14 +217,14 @@ int mPlayer::SDLDisplay() {
                         filteredFrame = av_frame_alloc();
                     }
                     char drawStr[512] = { 0 };
-                    uint64_t memUsage, readB, writeB;
+                    uint64_t memUsage, vMem, readB, writeB;
                     pStatus->getIOBytes(&readB, &writeB);
-                    pStatus->getMemUsage(&memUsage, NULL);
+                    pStatus->getMemUsage(&memUsage, &vMem);
                     time_t nowTime = time(NULL);
 	                tm* tmNow = localtime(&nowTime);
-                    sprintf_s(drawStr, sizeof(drawStr), "drawtext=fontsize=20:text='now time %d/%d/%d %d-%02d-%02d\nrecordTime %d\nfps %d\ncpuUsage %d\nmemoryUsage %dKB\nIO bytes read %dKB write %dKB\n':x=10:y=10",
+                    sprintf_s(drawStr, sizeof(drawStr), "drawtext=fontsize=20:text='now time %d/%d/%d %d-%02d-%02d\nrecordTime %d\nfps %d\ncpuUsage %d\nmemoryUsage %dKB\nvirtual memoryUsage %dKB\nIO bytes read %dKB write %dKB\n':x=10:y=10",
                     tmNow->tm_year + 1900, tmNow->tm_mon + 1, tmNow->tm_mday, tmNow->tm_hour, tmNow->tm_min, tmNow->tm_sec,
-                    recordTime / 1000, fps, pStatus->getCPUUsage(), memUsage / 1000, readB / 1000, writeB / 1000);
+                    recordTime / 1000, fps, pStatus->getCPUUsage(), memUsage / 1000, vMem / 1000, readB / 1000, writeB / 1000);
                     subTitleFilter = new mFilter(pCodecCtx, drawStr);
                     subTitleFilter->getFilteredFrame(pFrameYUV);
                     delete subTitleFilter;
