@@ -42,6 +42,7 @@ mPlayer::mPlayer(SOURCE_TYPE srcType, const char *srcName) {
             srcName = "0";
         }
         
+        // ffmpeg -list_options true -f dshow -i video="USB2.0 HD UVC WebCam"
         // 分辨率
         av_dict_set(&option, "video_size", "640x480", 0);
         // 设置帧率
