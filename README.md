@@ -28,10 +28,6 @@ DTS(Decoding Time Stamp)属于AVPacket，表示解码时间。
 
 **demux**逆操作。
 
-## 经历
-
-花在SDL和ffmpeg和CMake适配上的时间太多了。。
-
 ## 现存问题
 
-卡，sdl窗口太卡了
+sdl窗口太卡了
